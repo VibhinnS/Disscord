@@ -1,5 +1,5 @@
-from trie import search_trie
+from .trie import search_trie
 
 __all__ = [
-    search_trie
+    'search_trie'
 ]

@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from datetime import timedelta
+from django.core.exceptions import ValidationError
 
 #disscord Server data model
 class Server(models.Model):
@@ -12,7 +13,17 @@ class Server(models.Model):
     server_name = models.CharField(max_length=25, null=False)
     server_type = models.CharField(max_length=7, choices=SERVER_OPTION)
     created_at = models.DateTimeField(auto_now_add=True)
-    owner = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='owned_servers')
+    owner = models.ForeignKey('auth.User', on_delete=models.SET_NULL, related_name='owned_servers', null=True)
+
+    def clean(self):
+        if not self.server_name.strip():
+            raise ValidationError("Server can't be nameless aneki!")
+        if len(self.server_name.strip()) > 25:
+            raise ValidationError("Length can't be more than 25 characters!")
+
+    def save(self, *args, **kwargs):
+        self.full_clean() 
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.server_name

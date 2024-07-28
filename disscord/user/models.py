@@ -35,7 +35,7 @@ class ServerMembership(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     server = models.ForeignKey(Server, related_name='part_of_server', on_delete=models.CASCADE)
     joined_at = models.DateTimeField(auto_now_add=True)
-    role = models.CharField(choices=roles, default="Member")
+    role = models.CharField(max_length=20, choices=roles, default="Member")
 
     class Meta:
         unique_together = ('user', 'server')
