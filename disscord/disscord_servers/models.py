@@ -79,6 +79,3 @@ class Invite(models.Model):
 
     def __str__(self):
         return f"{self.created_by} invites you to join Disscord @{self.server} - link expires in {self.expires_at}!"
-
-    
-
