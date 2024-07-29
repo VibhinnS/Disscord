@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from datetime import timedelta
 from django.core.exceptions import ValidationError
+from user.models import User
 
 #disscord Server data model
 class Server(models.Model):
@@ -13,7 +14,7 @@ class Server(models.Model):
     server_name = models.CharField(max_length=25, null=False)
     server_type = models.CharField(max_length=7, choices=SERVER_OPTION)
     created_at = models.DateTimeField(auto_now_add=True)
-    owner = models.ForeignKey('auth.User', on_delete=models.SET_NULL, related_name='owned_servers', null=True)
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='owned_servers', null=True)
 
     def clean(self):
         if not self.server_name.strip():

@@ -37,12 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'disscord_servers',
     'disscord_voice_chat',
     'moderation',
     'notifications',
     'private_chat',
-    'user'
+    'user',
 ]
 
 MIDDLEWARE = [
